@@ -12,6 +12,10 @@
             <div class="logo-container">
                 <img src='./assets/Google Gemini Generated Image.png' alt="Badam" class="logo-image">
             </div>
+        <div id = "bday">
+            <h1>Happy Birthday Lekhan 🎉</h1>
+        </div>
+            
             <h1>Gift Me Badams</h1>
             <div id="error-message" class="error-message"></div>
             <form id="signin-form">
@@ -49,4 +53,18 @@
     <script src="app.js"></script>
 </body>
 </html>
+<script>
+const today = new Date()
 
+const day = today.getDate()
+
+const month = today.toLocaleString('default', { month: 'long' })
+
+if (day === 9 && month === 'November') {
+  bday.style.display = 'block'
+  bday.style.fontFamily = 'Brush Script MT'
+} else {
+  bday.style.display = 'none'   
+}
+
+</script>
