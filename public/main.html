@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Badam Rewards - Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="dashboard">
+            <div class="header">
+                <h1>Welcome, <span id="username"></span>!</h1>
+                <button id="signout-btn" class="btn btn-secondary">Sign Out</button>
+            </div>
+            <div class="badam-section">
+                <div class="badam-image-container">
+                    <img src="assets/Gemini Generated Image.png" alt="Badam" id="badam-image">
+                </div>
+                <div class="badam-counter">
+                    <h2>Badam Count</h2>
+                    <div class="count-display">
+                        <span id="badam-count">0</span>
+                    </div>
+                    <div class="button-group">
+                        <button id="decrement-btn" class="btn btn-minus">-</button>
+                        <button id="increment-btn" class="btn btn-plus">+</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="main.js"></script>
+</body>
+</html>
+
