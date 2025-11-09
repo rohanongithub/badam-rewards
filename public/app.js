@@ -8,6 +8,15 @@ async function checkAuth() {
   } catch (error) {
     // Not authenticated, stay on sign-in page
   }
+  
+  // Check for OAuth error in URL
+  const urlParams = new URLSearchParams(window.location.search);
+  const error = urlParams.get('error');
+  if (error === 'google_auth_failed') {
+    showError('Google authentication failed. Please try again.');
+    // Clean up URL
+    window.history.replaceState({}, document.title, window.location.pathname);
+  }
 }
 
 // Show error message
@@ -67,12 +76,8 @@ document.getElementById('signup-form').addEventListener('submit', async (e) => {
     const data = await response.json();
 
     if (response.ok) {
-      showError('Account created! Please sign in.');
-      // Switch to sign in form
-      document.getElementById('signup-form').style.display = 'none';
-      document.getElementById('signin-form').style.display = 'block';
-      document.getElementById('switch-to-signin').style.display = 'none';
-      document.getElementById('show-signup').parentElement.style.display = 'block';
+      // Auto-logged in after signup, redirect to main page
+      window.location.href = '/main.html';
     } else {
       showError(data.error || 'Sign up failed');
     }
@@ -96,6 +101,16 @@ document.getElementById('show-signin').addEventListener('click', (e) => {
   document.getElementById('signin-form').style.display = 'block';
   document.getElementById('switch-to-signin').style.display = 'none';
   document.getElementById('show-signup').parentElement.style.display = 'block';
+});
+
+// Google Sign-In button handler
+document.getElementById('google-signin-btn').addEventListener('click', () => {
+  window.location.href = '/api/auth/google';
+});
+
+// Google Sign-Up button handler
+document.getElementById('google-signup-btn').addEventListener('click', () => {
+  window.location.href = '/api/auth/google';
 });
 
 // Check auth on page load

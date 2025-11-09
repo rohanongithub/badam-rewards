@@ -12,6 +12,30 @@ async function checkAuth() {
     }
     const data = await response.json();
     document.getElementById('username').textContent = data.username;
+    
+    // Display avatar if available
+    const header = document.querySelector('.header h1');
+    if (data.avatar_url) {
+      // Add avatar image if not already present
+      let avatarImg = document.getElementById('user-avatar');
+      if (!avatarImg) {
+        avatarImg = document.createElement('img');
+        avatarImg.id = 'user-avatar';
+        avatarImg.className = 'user-avatar';
+        avatarImg.src = data.avatar_url;
+        avatarImg.alt = data.username;
+        header.insertBefore(avatarImg, header.firstChild);
+      } else {
+        avatarImg.src = data.avatar_url;
+      }
+    } else {
+      // Remove avatar if present but user doesn't have one
+      const avatarImg = document.getElementById('user-avatar');
+      if (avatarImg) {
+        avatarImg.remove();
+      }
+    }
+    
     await loadBadamCount();
   } catch (error) {
     window.location.href = '/index.html';

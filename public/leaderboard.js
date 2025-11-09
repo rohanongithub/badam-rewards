@@ -46,9 +46,14 @@ function displayLeaderboard(leaderboard) {
     const medal = rank <= 3 ? medals[rank - 1] : '';
     const rankDisplay = rank <= 3 ? medal : `#${rank}`;
     
+    const avatarHtml = user.avatar_url 
+      ? `<img src="${escapeHtml(user.avatar_url)}" alt="${escapeHtml(user.username)}" class="leaderboard-avatar">`
+      : '';
+    
     return `
       <div class="leaderboard-item ${rank <= 3 ? 'top-three' : ''}">
         <div class="rank">${rankDisplay}</div>
+        ${avatarHtml}
         <div class="user-info">
           <div class="username">${escapeHtml(user.username)}</div>
           <div class="user-meta">Joined ${formatDate(user.created_at)}</div>
