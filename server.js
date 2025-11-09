@@ -32,16 +32,21 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 // Session configuration
+// Session configuration
+app.set('trust proxy', 1); // ✅ Tell Express we're behind a proxy (Render)
 app.use(session({
   secret: process.env.SESSION_SECRET || 'badam-rewards-secret-key-change-in-production',
   resave: false,
   saveUninitialized: false,
+  proxy: true, // ✅ Required for secure cookies behind proxy
   cookie: {
     httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
+    secure: process.env.NODE_ENV === 'production', // ✅ Only secure in production
+    sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax', // ✅ Allow cross-site cookies from OAuth
     maxAge: 24 * 60 * 60 * 1000 // 24 hours
   }
 }));
+
 
 // Initialize Passport
 app.use(passport.initialize());
